@@ -1,3 +1,8 @@
+/* This file listens for keystrokes usinf a keypress module
+ * and something called "stdin" (standard input?)
+ *
+ *
+ */
 const _ = require('underscore');
 const keypress = require('keypress');
 
@@ -39,7 +44,7 @@ module.exports.initialize = () => {
       console.log(`Message received: ${key.name}`);
       return; // don't do any more processing on this key
     }
-    
+
     // otherwise build up a message from individual characters
     if (key && (key.name === 'return' || key.name === 'enter')) {
       // on enter, process the message

@@ -1,3 +1,4 @@
+//Sets up the response codes and CORs headers.
 const headers = require('./cors');
 
 module.exports = (req, res) => {

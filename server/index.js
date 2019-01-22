@@ -1,3 +1,10 @@
+/* Analysis:
+ * This file initializes the keyPressHandler, which sets up the
+ *  event listeners for key strokes.  See the file for details.
+ * This file then initializes the node server (http.createServer),
+ *  with address 127.0.0.1:3000
+ *
+ * */
 
 require('./js/keypressHandler').initialize();
 const handler = require('./js/httpHandler');
