@@ -48,10 +48,17 @@
       //send a request to the server and have the server respond with a random request,
       //which is then performed
       var successCB = (data) => {
+        console.log(data);
+        console.log(data.length);
+
         if (data === null) {
           console.log("No commands present on server")
         } else {
-          SwimTeam.move(data);
+          for (let i = 0; i < data.length; i++){
+            console.log("CMD RCVD: "+data[i]);
+            SwimTeam.move(data[i]);
+            //synchronous wait command:
+          }
         }
       }
 

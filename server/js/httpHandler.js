@@ -12,11 +12,16 @@ module.exports = (request, response) => {
     response.writeHead(statusCode, headers);
     // var moves = ['left', 'right', 'down', 'up'];
     // var random = moves[Math.floor(Math.random()*moves.length)];
-    let nextCommand = msg.dequeue();
-    console.log(`returning ${nextCommand} to the client`)
-    if (nextCommand !== undefined) {
-      response.end(JSON.stringify(nextCommand));
-    } else {
+    let buffer = [];
+    let next = msg.dequeue();
+    while (next) { //remove all items from the server queue
+      buffer.push(next);
+      next = msg.dequeue();
+    }
+    console.log(`returning ${buffer} commands to the client`);
+    if (buffer.length !== 0) {
+      response.end(JSON.stringify(buffer));
+    } else { //there were no commands
       response.end(JSON.stringify(null));
     }
 
