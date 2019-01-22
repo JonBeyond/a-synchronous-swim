@@ -12,11 +12,39 @@
       <div class="swimmer">↜</div>
     </div>
   </div>
+  <div class="cmdSelect"> Send a specific command to the swimteam:
+    <br>
+    <select id="cmdOptions">
+      <option value="up">up</option>
+      <option value="down">down</option>
+      <option value="left">left</option>
+      <option value="right">right</option>
+    </select>
+    <button id='cmdSubmit'>submit</button>
+    <br>
+    <br>
+  </div>
+  <div> Send a random command via ajax
+    <br>
+    <button id="ajaxRand">Submit request</button>
+  </div>
 </body>
 <script src="/node_modules/jquery/dist/jquery.js"></script>
 <script src="/node_modules/underscore/underscore.js"></script>
 <script src="/js/swimTeam.js"></script>
 <script src="/js/keypressHandler.js"></script>
+<script>
 
+  $(document).ready(function(){
+    //event listener for submit button goes here
+    $('#cmdSubmit').click(function(){
+      //need to remove the value selected
+      var command = $("#cmdOptions option:selected" ).text();
+      //now this needs to send to the swimTeam command
+      SwimTeam.move(command);
+    })
+  });
+
+</script>
 </html>
 
