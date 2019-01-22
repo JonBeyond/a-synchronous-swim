@@ -9,6 +9,7 @@ const messages = []; // the storage unit for messages
 module.exports.enqueue = (message) => {
   console.log(`Enqueing message: ${message}`);
   messages.push(message);
+  console.log('all messages are: '+JSON.stringify(messages));
 };
 
 module.exports.dequeue = () => {

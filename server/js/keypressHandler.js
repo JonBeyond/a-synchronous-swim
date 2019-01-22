@@ -4,6 +4,7 @@
  *
  */
 const _ = require('underscore');
+const msg = require('./messageQueue');
 const keypress = require('keypress');
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -42,6 +43,7 @@ module.exports.initialize = () => {
     // check to see if the keypress itself is a valid message
     if (isValidMessage(key.name)) {
       console.log(`Message received: ${key.name}`);
+      msg.enqueue(key.name);
       return; // don't do any more processing on this key
     }
 
@@ -49,8 +51,9 @@ module.exports.initialize = () => {
     if (key && (key.name === 'return' || key.name === 'enter')) {
       // on enter, process the message
       logKeypress('\n');
-      if (isValidMessage(message)) {
+      if (isValidMessage(message)) { //********************  WHAT DOES THIS DO?
         console.log(`Message received: ${message}`);
+        //msg.enqueue(message); //place into queue
       }
       // clear the buffer where we are collecting keystrokes
       message = '';

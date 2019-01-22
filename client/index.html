@@ -48,7 +48,11 @@
       //send a request to the server and have the server respond with a random request,
       //which is then performed
       var successCB = (data) => {
-        SwimTeam.move(data);
+        if (data === null) {
+          console.log("No commands present on server")
+        } else {
+          SwimTeam.move(data);
+        }
       }
 
       $.ajax({

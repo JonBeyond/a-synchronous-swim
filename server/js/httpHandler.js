@@ -1,5 +1,6 @@
 //Sets up the response codes and CORs headers.
 const headers = require('./cors');
+const msg = require('./messageQueue');
 
 module.exports = (request, response) => {
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
@@ -9,9 +10,15 @@ module.exports = (request, response) => {
     var statusCode = 200;
     headers['Content-Type'] = 'application/json';
     response.writeHead(statusCode, headers);
-    var moves = ['left', 'right', 'down', 'up'];
-    var random = moves[Math.floor(Math.random()*moves.length)];
-    response.end(JSON.stringify(random));  //Response.end will send the data inside () back to the client
+    // var moves = ['left', 'right', 'down', 'up'];
+    // var random = moves[Math.floor(Math.random()*moves.length)];
+    let nextCommand = msg.dequeue();
+    console.log(`returning ${nextCommand} to the client`)
+    if (nextCommand !== undefined) {
+      response.end(JSON.stringify(nextCommand));
+    } else {
+      response.end(JSON.stringify(null));
+    }
 
    } else if (request.method === "OPTIONS") { //standard options reply
     var statusCode = 200; //200 means OK
