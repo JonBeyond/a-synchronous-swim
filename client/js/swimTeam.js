@@ -10,6 +10,8 @@ const SwimTeam = {
     console.log(`Lets go: ${direction}`);
 
     // set the swim-team's direction
+    // specifically, this will first set the direction that each swimmer 'points'
+    // but if they are pointed in the same direction, then it will move them.
     $('.swimmer')
       .removeClass((idx, classNames) => {
         var name = classNames.match(/(turn-\w+)/);
@@ -31,6 +33,7 @@ const SwimTeam = {
   updateLoc: (direction) => {
     // calculate what the new position is for the swim-team is
     // but don't let the swim-team get outside the max bounds!
+    //note it doesnt do anything if you're at the max
     switch (direction) {
     case 'up':
       if (SwimTeam.coords.top > SwimTeam.max.top) {
