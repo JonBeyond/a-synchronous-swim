@@ -10,17 +10,11 @@ module.exports = (request, response) => {
     var statusCode = 200;
     headers['Content-Type'] = 'application/json';
     response.writeHead(statusCode, headers);
-    // var moves = ['left', 'right', 'down', 'up'];
-    // var random = moves[Math.floor(Math.random()*moves.length)];
-    let buffer = [];
-    let next = msg.dequeue();
-    while (next) { //remove all items from the server queue
-      buffer.push(next);
-      next = msg.dequeue();
-    }
-    console.log(`returning ${buffer} commands to the client`);
-    if (buffer.length !== 0) {
-      response.end(JSON.stringify(buffer));
+
+    let message = msg.dequeue();
+
+    if (message !== undefined) {
+      response.end(JSON.stringify(message));
     } else { //there were no commands
       response.end(JSON.stringify(null));
     }

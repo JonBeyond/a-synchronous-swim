@@ -24,9 +24,9 @@
     <br>
     <br>
   </div>
-  <div> Send a random command via ajax
+  <div> Pull a single command inserted on the node server
     <br>
-    <button id="ajaxRand">Submit request</button>
+    <button id="ajaxRand">Submit cmd request</button>
   </div>
 </body>
 <script src="/node_modules/jquery/dist/jquery.js"></script>
@@ -36,6 +36,41 @@
 <script>
 
   $(document).ready(function(){
+    //when the page loads, the websocket will attempt.
+    //IMPORTANT: the server must be running prior to loading the page (limitation)
+
+    // const url = 'ws://127.0.0.1:3000';
+    // const connection = new WebSocket(url)
+
+    // connection.onopen = () => {
+    //   connection.send('hey') 
+    // }
+
+    // connection.onerror = (error) => {
+    //   console.log(`WebSocket error: ${error}`)
+    // }
+
+    // connection.onmessage = (e) => {
+    //   console.log(e.data)
+    // }
+
+
+
+    // var serverConnection = new WebSocket("/");
+
+    // serverConnection.onmessage = function (event) {
+    //   console.log(`Message received from mothership: ${event.data}`);
+    //   serverConnection.send("hello server, from client");
+    //   console.log(serverConnection.url);
+    //   //we would eventually need to send this to the swimTeam.move
+    //   if (event.data !== "connected") { //for any other message, we shall send to the swimteam
+    //     SwimTeam.move(event.data);
+    //   }
+    // }
+
+
+    //***************************************************
+
     //event listener for submit button goes here
     $('#cmdSubmit').click(function(){
       //need to remove the value selected
@@ -48,17 +83,12 @@
       //send a request to the server and have the server respond with a random request,
       //which is then performed
       var successCB = (data) => {
-        console.log(data);
-        console.log(data.length);
-
+        // console.log(data);
+        // console.log(data.length);
         if (data === null) {
           console.log("No commands present on server")
         } else {
-          for (let i = 0; i < data.length; i++){
-            console.log("CMD RCVD: "+data[i]);
-            SwimTeam.move(data[i]);
-            //synchronous wait command:
-          }
+            SwimTeam.move(data);
         }
       }
 
